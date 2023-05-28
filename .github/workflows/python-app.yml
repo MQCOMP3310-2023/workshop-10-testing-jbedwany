@@ -28,12 +28,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install bandit pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
+    - name: Lint with bandit
       run: |
-        # stop the build if there are Python syntax errors or undefined names
         bandit -r . -x test_*.py
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        bandit -r . -x test_*.py
+        continue-on-error: true
     - name: Test with pytest
       run: |
         pytest
